@@ -1,0 +1,96 @@
+\documentclass[tikz, border=2mm]{standalone}
+\usepackage{amsmath}
+\usetikzlibrary{automata, positioning, arrows}
+\tikzset{
+  ->, % makes the edges directed
+  >=stealth', % makes the arrow heads bold
+  node distance=3cm, % specifies the minimum distance between two nodes. Change if necessary.
+  every state/.style={thick}, % sets the properties for each ’state’ node
+  initial text=, % sets the text that appears on the start arrow
+}
+
+\begin{document}
+
+\begin{tikzpicture}[shorten >=1pt, on grid, auto]
+  \node[state, initial] (0) {$q_0$};
+  \node[state, right of=0] (1) {$q_1$};
+  \node[state, right of=1] (2) {$q_2$};
+  \node[state, right of=2] (3) {$q_3$};
+  \node[state, right of=3] (4) {$q_4$};
+  \node[state, below right of=2] (5) {$q_5$};
+  \node[state, below right of=5, accepting] (6) {$q_6$};
+  
+  \draw  
+    (0) edge[bend left, above] node[above]{$
+    \begin{aligned}
+      (b, b, L)\\
+      (a, b, R)
+    \end{aligned}$} (1);
+   
+   
+   \draw (1) edge[loop below] node[below]{$
+    \begin{aligned}
+      (a, b, R)\\[-0.7ex]
+      (b, b, L)
+    \end{aligned}$} (1);
+    
+    
+  \draw  
+    (1) edge[bend left, above] node[above]{$
+    \begin{aligned}     
+      (\o{}, \o{}, R)
+    \end{aligned}$} (2);
+    
+
+  \draw  
+    (2) edge[bend left, above] node[above]{$
+    \begin{aligned}     
+      (b, y, R)
+    \end{aligned}$} (3);    
+
+
+  \draw  
+    (2) edge[bend right, below] node[below]{$
+    \begin{aligned}     
+      (x, x, R)
+    \end{aligned}$} (5);        
+    
+  \draw (3) edge[loop above] node[above]{$
+    \begin{aligned}
+      (x, x, R)\\[-0.7ex]
+      (b, b, R)
+    \end{aligned}$} (3);
+    
+   \draw  
+    (3) edge[bend left, above] node[above]{$
+    \begin{aligned}     
+      (a, x, L)
+    \end{aligned}$} (4);    
+    
+  \draw (4) edge[loop below] node[below]{$
+    \begin{aligned}
+      (b, b, L)\\[-0.7ex]
+      (x, x, L)
+    \end{aligned}$} (4);
+    
+    \draw  
+    (4) edge[bend left, below] node[below]{$
+    \begin{aligned}     
+      (y, y, R)
+    \end{aligned}$} (2);    
+    
+   \draw  
+    (5) edge[loop below] node[below]{$
+    \begin{aligned}     
+      (x, x, R)
+    \end{aligned}$} (5);    
+    
+   \draw  
+    (5) edge[bend left, below] node[below]{$
+    \begin{aligned}     
+      (\o{}, \o{}, L)
+    \end{aligned}$} (6);
+
+\end{tikzpicture}
+
+\end{document}
